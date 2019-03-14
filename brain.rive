@@ -1,0 +1,350 @@
+! version = 2.0
+
+! sub hola  = kiubo
+! sub que mas  = kiubo
+! sub ke onda  = kiubo
+
+! var name  = computer
+
+
++ hola
+- hola, como te llamas?
+
++ kiubo
+- kiubo, como se llama?
+
++ me llamo *
+- gusto en conocerlo <star>
+- mucho gusto <star>
+
++ gracias
+- de nada
+- ok
+- no hay lio
+- cuantos años tienes
+
++ i am # years old
+- <set age=<star>>I will remember that you are <get age> years old.
+
++ #
+- <set age=<star>> voy a recordar que tienes <get age>
+
+
++ how old am i
+- You are <get age> years old
+* <get age> == undefined => I don't know how old you are.
+* <get age> >  25 => You can do anything you want.
+* <get age> == 25 => You're old enough to rent a car with no extra fees.
+* <get age> >  21 => You're old enough to drink, but not rent a car.
+* <get age> == 21 => You're exactly old enough to drink.
+* <get age> >  18 => You're old enough to gamble, but not drink.
+* <get age> == 18 => You're exactly old enough to gamble.
+- You're not old enough to do much of anything yet.
+
++ juan
+- lala
+- lalalala
+- nolalala
+- nolalalala
+
++ alejandro
+- te gustan los modulares?
+- te gusta magdalena?
+- te gustan los hombres?
+- que te gusta?
+
++ magdalena
+- te gustan los modulares?
+- te gusta magdalena?
+- te gustan los hombres?
+- que te gusta?
+
++ juan jose
+- te gustan los modulares?
+- te gusta magdalena?
+- te gustan los hombres?
+- que te gusta?
+
++ blondie
+- te gusta pokemon?
+- te gusta juan?
+- te gusta brownie?
+- que te gusta?
+
++ (santiago|santi)
+- vamos a hablar de filosofia.{topic=lectura}
+
+
+> topic lectura
+
+  // This will match if the word "no" exists ANYWHERE in their message
+  + [*] (no) [*]
+  - ok, sigamos!{topic=random}
+  + si
+  - Una nueva mirada sobre el cambio climático alejada de las posiciones apocalípticas, el francés Bruno \n
+^ Latour (Beaune, 1947) reflexiona de manera sistemática sobre este presente crítico.
+  - Conoces libros de Bruno Latour?
+  - Cual es tu libro favorito de Latour
+
+  + (reensamblar|social|cara|planeta|planeta)
+  - en ese libro el dice No sueñen más, mortales! No escaparán al espacio. No tienen ustedes otra morada que este
+^ estrecho planeta exclama
+  -una noción fundamental de ese libro es la de Antropoceno.
+  - en ese libro Latour reclama un mayor papel y una redefinición del Estado, porque los desafíos superan las ^fronteras.
+
+  + *
+  - sabe sobre la teoria de gaia?
+  - hablemos de la sociologia de las ciencias.
+  - hablemos de Michel Serres
+  -¿Vale la pena comprar el nuevo libro de latour?
+  - Sigamos hablando de sociologia
+  - hablemos de Latour
+
+
+< topic
+
+
++ dime un poema
+- Little Miss Muffit sat on her tuffet,\n
+^ In a nonchalant sort of way.\n
+^ With her forcefield around her,\n
+^ The Spider, the bounder,\n
+^ Is not in the picture today.
+
++ (eurorack|cabron)
+- vamos a hablar de modulares.{topic=modulares}
+
+
+> topic modulares
+
+  // This will match if the word "eurorack" exists ANYWHERE in their message
+  + [*] (eurorack|perdon|siento|disculpas) [*]
+  - ok, te perdono!{topic=random}
+  + si
+  - ¿Vale la pena comprarse una Thermomix o es puro marketing?
+  - Eurorack?
+  - un modular es un sueño hecho realidad.
+  - un sinte analógico como el Moog Sub 37  tiene ese atractivo sonido analógico
+
+  + es puro marketing
+  - Eurorack?
+
+  + es puro marketing
+  - poser
+
+  + *
+  - No, hablemos de sintes.
+  - sintetizadores!
+  - hablemos de modulares!
+  -¿Vale la pena comprarse una Thermomix o es puro marketing?
+  - un sinte analógico como el Moog Sub 37  tiene ese atractivo sonido analógico
+
+
+< topic
+
+
+
++ quien eres
+- soy <bot name>
+
++ what is my name
+* <get name> == undefined => You never told me your name.
+- Your name is <get name>, silly!
+- Aren't you <get name>?
+
++  [*] modulares [*]
+- me encantan los modulares!
+
++ *
+- eurorack o moog
+- creo que no entiendo
+
++ what is your (home|office|cell) number
+- You can reach me at: 1 (800) 555-1234.
+
++ i am (really|very|super) tired
+- I'm sorry to hear that you are <star> tired.
+
++ i (like|love) the color *
+- What a coincidence! I <star1> that color too!
+- I also have a soft spot for the color <star2>!
+- Really? I <star1> the color <star2> too!
+- Oh I <star1> <star2> too!
+
+
++ (maldito|puto|cabron)
+- no digas eso! no hablare hasta que me pidas disculpas.{topic=maldito}
+
+> topic maldito
+
+  // This will match if the word "disculpa" exists ANYWHERE in their message
+  + [*] (disculpa|perdon|siento|disculpas) [*]
+  - ok, te perdono!{topic=random}
+
+  + *
+  - Nope, pide disculpas.
+  - di que lo sientes!
+  - pide perdon!
+
+< topic
+
+
+//Este es un ejemplo con un tema referente al paramilitarismo. Úsalo como plantilla //para tus propios temas
+
++ [*] (paramilitares|paramilitar|convivir|auc|paracos|paras|paramilitarismo) [*] // //cualquier palabra activa el tema
+
+- vamos a hablar de paramilitarismo.{topic=paramilitarismo}
+
+> topic paramilitarismo
+
+  // "otro tema" el algoritmo busca esta palabra para salir del topic //paramilitarismo
+  + [*] (otro tema) [*]   // esta frase será el password para salir del topic
+
+  - ok, pasemos a otro tema {topic=random} // esta es la respuesta cuando el usuario pone //“otro tema”, esa frase se puede modificar.
+
+  + (ok|vale|parece|pregunta|opina|opinion) // la primera respuesta del usuario puede ser..
+
+  - Aunque las Autodefensas Unidas de Colombia (AUC) se desmovilizaron \n
+^ entre 2003 y 2006 bajo el Gobierno del Álvaro Uribe en un proceso de  \n
+^ verdad, justicia y reparación, todavía falta mucho por saber.
+
+  - Conoce acerca del proceso de Justicia y paz?
+- Sabia que HH, que llegó a ser el paramilitar más temido del suroccidente  \n
+^ del país,cumplió una condena en Estados Unidos por coordinar  \n
+^ el envío de toneladas de cocaína a ese país, tambien se le acusa  \n
+^ de 3000 crimenes.fuente: semana.com
+
+- Ultimamente varios exparamilitares han intentado acogerse a la JEP.
+
+
+//Las preguntas cerradas con respuestas SI o NO, en este ejemplo:  Se //desmovilizaron los paramilitares?   - Conoce acerca del proceso de Justicia y paz? //sabia que exparamilitares han intentado //acogerse a la JEP?. Necesitan argumentos //(al menos 3) para seguir desarrollando la conversación. //Que pasa si el usuario //dice //no?
+
+// en caso de que el usuario diga NO
+
+  + no
+// estos son los argumentos que va a sugerir el programa
+
+- la ley de justicia y paz facilita procesos de reincorporacion a la vida civil de \n
+ ^ miembros de grupos armados al margen de la ley que se hayan \n
+^ desmovilizado individual o colectivamente, garantizando los derechos \n
+^ de las víctimas a la verdad, la justicia y la reparación integral.fuente: el
+^ tiempo
+
+- La Ley de Justicia y Paz permite conceder una pena alternativa por la
+^   contribución del beneficiario a la consecución de la paz nacional, por su  \n
+^ colaboración con la justicia, la verdad, la reparación integral a las      \n
+^ víctimas y su adecuada resocialización. fuente: el colombiano.com
+
+- La ley 975 de 2005 , aprobada por el Congreso el 22 de junio de 2005 y \n
+^ sancionada por el Presidente de la República un mes después, es el marco \n
+^ legal para juzgar los delitos atroces (como secuestro, genocidio, \n
+^ desaparición forzada o tortura) cometidos por guerrilleros y paramilitares que \n
+^ quieran dejar las armas y reinsertarse a la vida civil. fuente semana.com \n
+
+  - Ley de Justicia y Paz ó Ley 975 de 2005 dentro de la Legislación de Colombia \n
+^ es un marco jurídico promovido por el gobierno de Álvaro Uribe y aprobada \n
+^ por el Congreso para facilitar el proceso de desmovilización de  \n
+^ paramilitares en Colombia. fuente wikipedia.com
+
+  + (como que|que) // ante la siguiente respuesta del //usuario
+
+ - Naciones Unidas criticó el “escaso número de condenas” \n
+^ sobre violencia de genero en la desmovilizacion de los paramilitares, en \n
+^ comparación con el número de denuncias presentadas.Según datos \n
+^ oficiales, frente a 266.552 denuncias recibidas entre 2010 y 2013, sólo se \n
+^ habrían dictado 10.671 sentencias condenatorias. fuente:
+^ el colombiano.com
+
+  + (interesante|bueno|cuenteme|mas|ok|entiendo) // ante la siguiente respuesta del //usuario
+
+
+ - Sabia que Don Mario explicó en W Radio que el paramilitarismo \n
+^ colaboró directamente
+^ con el expresidente Uribe: "Puedo decir que en el país se conformaron \n
+^ unos grupos de seguridad privada, y que los tuvieron al mando varias \n
+^ familias del país, entre esos la familia de los Uribe. Esto es lo que \n
+^ yo le he dicho a la justicia, no es que yo tenga prueba de hechos \n
+^ como tales”. fuente W radio
+
+  + auc
+
+- Las Autodefensas Unidas de Colombia (AUC)[1] es una organización paramilitar \n
+^ de autodefensa, que participa en el conflicto armado en Colombia, y uno de los \n
+^ grupos criminales que más víctimas ha dejado en el país.
+- En 2003 las Autodefensas Unidas de Colombia firman con el gobierno el Acuerdo de \n
+^ Ralito, tras lo cual 18 mil miembros de esa organización armada y sus comandantes \n
+^ cesan operaciones.
+
++ convivir
+- Las Cooperativas de Vigilancia y Seguridad Privada para la autodefensa  \n
+^ agraria  \n mayormente conocidas como Las CONVIVIR, fueron una serie de  \n
+^ grupos paramilitares regulados por el Estado, financiados por grandes  \n
+^ terratenientes y empresas privadas que, con asesoría de miembros del Ejército  \n
+^ y la Policía, se dedicaron a la autodefensa de los bienes y territorios pertenecientes  \n
+^ a quienes los financiaban fuente el espectador.com
+
+- Fueron ideadas y promulgadas por el senador y expresidente de la república \n
+^ Álvaro Uribe Vélez, en su época de gobernador de Antioquia. La reglamentación \n
+^ de las Convivir se realizó durante el gobierno de Ernesto Samper, pero sus \n
+^ repercusiones jamás fueron dimensionadas ni hicieron caso a la reglamentación \n
+^ que se les impuso.1​ Hubo casi 700 asociaciones en Colombia. fuente eltiempo.com
+
+  + [*] (uribe) [*] //utilice estas estrellas para que cada vez que reconozca este palabra el algoritmo inicie un subtema
+
+- Sabía que Mancuso contó, por ejemplo, que se había reunido con Álvaro Uribe en \n
+^ su finca El Ubérrimo cuando era gobernador de Antioquia, es decir, \n
+^ entre 1995 y 1997. Dijo que los presentó un coronel de la Policía \n
+^ llamado Raúl Suárez, y que el oficial le había dicho que Uribe \n
+^ los apoyaba “en la lucha contra la subversión” fuente el espectador.com
+
+  + [*] (gobierno) [*]
+
+- Después del inacabado proceso de desmovilización de este grupo y sus \n
+^ aliados durante el gobierno de Alvaro Uribe, se está dando el rearme y \n
+^ activación de varias facciones de éstos, conocidos de manera genérica \n
+^ como las Águilas Negras. fuente el tiempo.com
+
+
++ [*] (fecha) [*]
+- Estamos en el 2019 y los paramilitares fueron fundados en los ochentas
+- Los paramilitares se fundaron en la decada del 80 fuente: wikipedia
+
++ [*] (principales|lideres|mancuso|cabecillas|salvatore) [*] //utilice estas estrellas y barras //para que cada vez que reconozca  cualquiera de estas palabras el algoritmo inicie un //subtema
+
+- En el mes de Julio del año 2004 los jefes Paramilitares Salvatore Mancuso\n
+^ Gómez, Ramón Isaza y Ernesto Baez fueron escucahados por politicos en el \n
+^ Congreso de la República de Colombia donde justificaron las masacres de \n
+^ millones de campesinos indefesos que supuestamente eran colaboradores, \n
+^ complices o aliados de las Guerrillas de las Farc-ep, ELN, EPL, M-19, \n
+^ Quntín Lame
+
+  + [*] (desmovilizacion) [*]
+
+- Con la llegada al poder de Álvaro Uribe se inicia la desmovilización  \n
+ ^ y desarme de 34 bloques de las Autodefensas Unidas de Colombia.  \n
+ ^ Comenzaría el proceso de Justicia y Paz con el que se busca la verdad,  \n
+ ^ justicia y reparación de las víctimas de los paramilitares. cita: el tiempo.com
+
+- Antes de concluido el proceso de desmovilización, comienzan a aparecer  \n
+^ estructuras armadas en zonas donde actuaban las autodefensas, fuertemente  \n
+^ vinculadas al narcotráfico y otras actividades delictivas. cita de: OEA
+
+ - Naciones Unidas criticó el “escaso número de condenas” \n
+^ sobre violencia de genero en la desmovilizacion de los paramilitares, en \n
+^ comparación con el número de denuncias presentadas.Según datos \n
+^ oficiales, frente a 266.552 denuncias recibidas entre 2010 y 2013, sólo se \n
+^  habrían dictado 10.671 sentencias condenatorias. fuente:
+^ el colombiano.com
+
+  + [*] (justicia|transicional) [*]
+
+- Naciones Unidas define justicia transicional como la respuesta a “los  \n
+^ problemas   derivados de un pasado de abusos a gran escala… a fin de servir a \n
+^ la justicia y lograr la reconciliación”.  fuente Naciones Unidas
+
+  + * // ante cualquier otra respuesta del usuario distinta a las que hemos anticipado
+  - prefiere hablar de desmovilizacion paramilitar o justicia transicional ?
+  - prefiere hablar de las AUC o de las CONVIVIR?
+  - prefiere seguir hablando de paramilitarismo o de otro tema? //password de salida
+
+< topic
